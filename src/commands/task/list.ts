@@ -25,7 +25,7 @@ export function taskListCommand(): Command {
       const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
       const tasks = db
         .prepare(`SELECT * FROM tasks ${where} ORDER BY id DESC`)
-        .all(...params) as Task[];
+        .all(...params) as unknown as Task[];
 
       if (tasks.length === 0) {
         console.log('No tasks found.');
