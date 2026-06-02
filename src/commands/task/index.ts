@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { taskCreateCommand } from './create.js';
+import { taskDeleteCommand } from './delete.js';
 import { taskFinishCommand } from './finish.js';
 import { taskListCommand } from './list.js';
 import { taskStartCommand } from './start.js';
@@ -10,5 +11,6 @@ export function taskCommand(): Command {
   cmd.addCommand(taskListCommand());
   cmd.addCommand(taskStartCommand());
   cmd.addCommand(taskFinishCommand());
+  cmd.addCommand(taskDeleteCommand());
   return cmd;
 }
