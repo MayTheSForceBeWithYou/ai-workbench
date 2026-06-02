@@ -45,7 +45,7 @@ export function usageSnapshotCommand(): Command {
 
         const snapshots = db
           .prepare('SELECT * FROM usage_snapshots ORDER BY recorded_at DESC LIMIT 50')
-          .all() as UsageSnapshot[];
+          .all() as unknown as UsageSnapshot[];
 
         if (snapshots.length === 0) {
           console.log('No snapshots recorded yet. Use --record to add one.');

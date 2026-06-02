@@ -17,13 +17,15 @@ afterEach(() => {
 });
 
 describe('schema', () => {
-  it('seeds all four tools', () => {
+  it('seeds all tools', () => {
     const tools = db.prepare('SELECT * FROM tools').all() as Tool[];
     expect(tools.map((t) => t.id)).toEqual([
       'chatgpt',
       'claude-code',
       'cursor',
       'github-copilot',
+      'manual',
+      'other',
     ]);
   });
 
@@ -36,6 +38,20 @@ describe('schema', () => {
     expect(task.title).toBe('Scaffold auth module');
     expect(task.status).toBe('pending');
     expect(task.task_type).toBe('implementation');
+  });
+
+  it('creates a task with tool and outcome at creation time', () => {
+    db.prepare(
+      'INSERT INTO tasks (title, task_type, tool_id, outcome) VALUES (?, ?, ?, ?)',
+    ).run('Scaffold auth module', 'implementation', 'claude-code', 'Initial auth module generated');
+
+    const task = db.prepare('SELECT * FROM tasks').get() as Task;
+    expect(task.title).toBe('Scaffold auth module');
+    expect(task.status).toBe('pending');
+    expect(task.tool_id).toBe('claude-code');
+    expect(task.outcome).toBe('Initial auth module generated');
+    expect(task.started_at).toBeNull();
+    expect(task.finished_at).toBeNull();
   });
 
   it('transitions task through pending → in_progress → done', () => {

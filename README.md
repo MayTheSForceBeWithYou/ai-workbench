@@ -62,9 +62,16 @@ aiw --help
 ```bash
 aiw task create --title "Scaffold auth module" --type implementation
 aiw task create --title "Write API docs" --type docs --description "OpenAPI 3 spec"
+aiw task create \
+  --title "Scaffold auth module" \
+  --type implementation \
+  --tool claude-code \
+  --outcome "Initial auth module generated"
 ```
 
-Options: `--title` (required), `--type` (default: `general`), `--description`
+Options: `--title` (required), `--type` (default: `general`), `--description`, `--tool`, `--outcome`
+
+Valid tools: `chatgpt`, `claude-code`, `cursor`, `github-copilot`, `manual`, `other`
 
 ### `aiw task list`
 

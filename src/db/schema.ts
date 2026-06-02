@@ -40,5 +40,7 @@ INSERT OR IGNORE INTO tools (id, name) VALUES
   ('chatgpt',        'ChatGPT Plus'),
   ('claude-code',    'Claude Code'),
   ('cursor',         'Cursor'),
-  ('github-copilot', 'GitHub Copilot');
+  ('github-copilot', 'GitHub Copilot'),
+  ('manual',         'Manual'),
+  ('other',          'Other');
 `;

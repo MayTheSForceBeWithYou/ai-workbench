@@ -1,4 +1,4 @@
-export type ToolId = 'chatgpt' | 'claude-code' | 'cursor' | 'github-copilot';
+export type ToolId = 'chatgpt' | 'claude-code' | 'cursor' | 'github-copilot' | 'manual' | 'other';
 
 export type TaskStatus = 'pending' | 'in_progress' | 'done' | 'abandoned';
 
