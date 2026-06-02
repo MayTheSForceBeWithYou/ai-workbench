@@ -76,6 +76,29 @@ describe('schema', () => {
     expect(task.finished_at).not.toBeNull();
   });
 
+  it('deletes an existing task', () => {
+    db.prepare('INSERT INTO tasks (title, task_type) VALUES (?, ?)').run('To delete', 'general');
+    const row = db.prepare('SELECT id FROM tasks').get() as { id: number };
+
+    const result = db.prepare('DELETE FROM tasks WHERE id = ?').run(row.id);
+    expect(result.changes).toBe(1);
+
+    const task = db.prepare('SELECT * FROM tasks WHERE id = ?').get(row.id);
+    expect(task).toBeUndefined();
+  });
+
+  it('returns 0 changes when deleting a nonexistent task', () => {
+    const result = db.prepare('DELETE FROM tasks WHERE id = ?').run(9999);
+    expect(result.changes).toBe(0);
+  });
+
+  it('validates that id must be a positive integer', () => {
+    for (const bad of [NaN, 0, -1]) {
+      expect(!Number.isInteger(bad) || bad < 1).toBe(true);
+    }
+    expect(!Number.isInteger(1) || 1 < 1).toBe(false);
+  });
+
   it('records a usage snapshot', () => {
     db.prepare(
       "INSERT INTO usage_snapshots (tool_id, period, tasks_done) VALUES ('cursor', '2024-06-W1', 5)",

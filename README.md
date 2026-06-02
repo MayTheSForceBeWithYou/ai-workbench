@@ -97,6 +97,14 @@ aiw task finish --id 3 --outcome "Auth module scaffolded, tests passing"
 
 Marks the task `done` with a short outcome note.
 
+### `aiw task delete`
+
+```bash
+aiw task delete --id 4
+```
+
+Permanently removes the task from the database.
+
 ### `aiw usage snapshot`
 
 ```bash
